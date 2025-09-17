@@ -8,3 +8,9 @@ export interface Note {
 }
 
 export type NoteTag = "Work" | "Personal" | "Meeting" | "Shopping" | "Todo";
+
+export interface NewNoteData {
+  title: string;
+  content?: string;
+  tag: NoteTag;
+}

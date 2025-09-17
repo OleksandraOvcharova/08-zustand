@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { NewNoteData } from "../api";
+import type { NewNoteData } from "@/types/note.ts";
 
 type NoteDraftStore = {
   draft: NewNoteData;

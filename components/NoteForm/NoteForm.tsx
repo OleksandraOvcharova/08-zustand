@@ -2,7 +2,7 @@
 
 import css from "./NoteForm.module.css";
 import { createNote } from "@/lib/api";
-import type { NewNoteData } from "@/lib/api";
+import type { NewNoteData, NoteTag } from "@/types/note.ts";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useNoteDraftStore } from "@/lib/store/noteStore";
@@ -37,10 +37,14 @@ export default function NoteForm() {
     });
   };
 
-  const handleCancel = () => router.push("/notes/filter/All");
+  const handleCancel = () => router.back();
 
   const handleSubmit = (formData: FormData) => {
-    const values = Object.fromEntries(formData) as NewNoteData;
+    const values: NewNoteData = {
+      title: formData.get("title") as string,
+      content: formData.get("content") as string,
+      tag: formData.get("tag") as NoteTag,
+    };
     mutation.mutate(values);
   };
 
@@ -50,11 +54,12 @@ export default function NoteForm() {
         <label htmlFor="title">Title</label>
         <input
           id="title"
-          type="text"
           name="title"
+          type="text"
           defaultValue={draft?.title}
           onChange={handleChange}
           className={css.input}
+          required
         />
       </div>
 
@@ -78,6 +83,7 @@ export default function NoteForm() {
           className={css.select}
           value={draft?.tag}
           onChange={handleChange}
+          required
         >
           <option value="Todo">Todo</option>
           <option value="Work">Work</option>

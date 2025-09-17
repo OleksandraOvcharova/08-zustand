@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { Note, NoteTag } from "../types/note.ts";
+import type { Note, NewNoteData } from "@/types/note.ts";
 
 interface NotesHttpResponse {
   notes: Note[];
@@ -25,12 +25,6 @@ export async function fetchNotes(
     },
   });
   return response.data;
-}
-
-export interface NewNoteData {
-  title: string;
-  content: string;
-  tag: NoteTag;
 }
 
 export async function createNote(newNote: NewNoteData) {
