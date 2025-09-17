@@ -7,7 +7,7 @@ import Modal from "@/components/Modal/Modal";
 import css from "./NotePreview.module.css";
 
 const formatDate = (date: string | Date): string => {
-  return new Date(date).toLocaleDateString();
+  return new Date(date).toLocaleDateString("en-US");
 };
 
 const NotePreview = () => {

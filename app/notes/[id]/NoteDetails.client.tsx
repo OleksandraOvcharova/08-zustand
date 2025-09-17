@@ -6,7 +6,7 @@ import { fetchNoteById } from "@/lib/api";
 import css from "./NoteDetails.module.css";
 
 const formatDate = (date: string | Date): string => {
-  return new Date(date).toLocaleDateString();
+  return new Date(date).toLocaleDateString("en-US");
 };
 
 export default function NoteDetailsClient() {

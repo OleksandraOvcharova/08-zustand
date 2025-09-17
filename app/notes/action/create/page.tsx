@@ -1,8 +1,9 @@
-import type { Metadata } from "next";
-import css from "./page.module.css";
+import { Metadata } from "next";
+import NoteForm from "@/components/NoteForm/NoteForm";
+import css from "./CreatePage.module.css";
 
-const title = "NoteHub 404";
-const description = "Page you are looking for could not be found";
+const title = "Create a new note | NoteHub";
+const description = "Capture your new idea in one step.";
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 const imageUrl = "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg";
 
@@ -12,8 +13,8 @@ export const metadata: Metadata = {
   openGraph: {
     title,
     description,
-    url: `${siteUrl}/not-found`,
-    siteName: "NoteHub",
+    url: `${siteUrl}/notes/action/create`,
+    siteName: title,
     images: [
       {
         url: imageUrl,
@@ -32,14 +33,12 @@ export const metadata: Metadata = {
   },
 };
 
-export default function NotFound() {
+export default function CreatePage() {
   return (
-    <main>
+    <main className={css.main}>
       <div className={css.container}>
-        <h1 className={css.title}>404 - Page not found</h1>
-        <p className={css.description}>
-          Sorry, the page you are looking for does not exist.
-        </p>
+        <h1 className={css.title}>Create note</h1>
+        <NoteForm />
       </div>
     </main>
   );

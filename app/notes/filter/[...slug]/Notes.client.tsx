@@ -10,8 +10,7 @@ import Pagination from "@/components/Pagination/Pagination";
 import Loader from "@/components/Loader/Loader";
 import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 import NoteList from "@/components/NoteList/NoteList";
-import Modal from "@/components/Modal/Modal";
-import NoteForm from "@/components/NoteForm/NoteForm";
+import Link from "next/link";
 import css from "./page.module.css";
 
 interface NotesClientProps {
@@ -21,7 +20,6 @@ interface NotesClientProps {
 function NotesClient({ tag }: NotesClientProps) {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
-  const [showModal, setShowModal] = useState(false);
 
   const [debouncedSearch] = useDebounce(search, 300);
 
@@ -45,10 +43,6 @@ function NotesClient({ tag }: NotesClientProps) {
 
   const totalPages = data?.totalPages ?? 0;
 
-  const handleModalClose = () => {
-    setShowModal(false);
-  };
-
   return (
     <div className={css.app}>
       <header className={css.toolbar}>
@@ -56,20 +50,13 @@ function NotesClient({ tag }: NotesClientProps) {
         {isSuccess && totalPages > 1 && (
           <Pagination totalPages={totalPages} setPage={setPage} page={page} />
         )}
-        {
-          <button className={css.button} onClick={() => setShowModal(true)}>
-            Create note +
-          </button>
-        }
+        <Link href="/notes/action/create" className={css.button}>
+          Create note +
+        </Link>
       </header>
       {isLoading && <Loader />}
       {isError && <ErrorMessage />}
       {data && data.notes.length > 0 && <NoteList notes={data.notes} />}
-      {showModal && (
-        <Modal onClose={handleModalClose}>
-          <NoteForm handleFormClose={handleModalClose} />
-        </Modal>
-      )}
       <Toaster />
     </div>
   );
